@@ -1,5 +1,4 @@
 
-
 	
 * ESTE DO-FILE SE CORRE DESPUES DE CORRER MAESTRO PARA SABER11 Y SABER PRO
 * AL FINAL HAY QUE VOLVER A CORRER MAESTRO PERO USANDO EL DIRECTORIO ACTUALIZADO
@@ -217,8 +216,8 @@ use "${mydir_Data_SB11}\v78910.dta", clear
 		
 		// Eliminando algunas entradas erradas del directorio
 		**********************************************
-		ed if regexm(NombApll,"XX")==1 & regexm(NombApll,"[A-WY-ZÑ]")==0
-		replace NombApll = "" if regexm(NombApll,"XX")==1 & regexm(NombApll,"[A-WY-ZÑ]")==0
+		ed if regexm(NombApll,"XX")==1 & regexm(NombApll,"[A-WY-ZÃ‘]")==0
+		replace NombApll = "" if regexm(NombApll,"XX")==1 & regexm(NombApll,"[A-WY-ZÃ‘]")==0
 		
 		ed if regexm(NombApll,"^[A-Z]$")==1
 		replace NombApll = "" if regexm(NombApll,"^[A-Z]$")==1
@@ -240,10 +239,10 @@ use "${mydir_Data_SB11}\v78910.dta", clear
 		cap drop NombApll2 // Se vuelve a reemplazar just despues de los SOUNDEX
 		gen NombApll2 = NombApll
 
-			// 1. Ñ al final 
-		ed if regexm(NombApll,"Ñ$")==1
-		replace NombApll = subinstr(NombApll,"Ñ","N",1) if regexm(NombApll,"Ñ$")==1
-		ed if regexm(NombApll2,"Ñ$")==1		
+			// 1. Ã‘ al final 
+		ed if regexm(NombApll,"Ã‘$")==1
+		replace NombApll = subinstr(NombApll,"Ã‘","N",1) if regexm(NombApll,"Ã‘$")==1
+		ed if regexm(NombApll2,"Ã‘$")==1		
 				
 		// 2. quitando H intermedias (no CH) por temas de ortografia
 		ed if regexm(NombApll,"[ABD-Z]H")==1 // No tiene en cuenta CH
@@ -271,7 +270,7 @@ use "${mydir_Data_SB11}\v78910.dta", clear
 		ed NombApll NombApll2  if regexm(NombApll2,"^H")==1 // No tiene en cuenta CH
 		
 		
-		// 4. Modificaciones para mejorar el desempeño del Soundex
+		// 4. Modificaciones para mejorar el desempeÃ±o del Soundex
 
 			// YA POR JA
 		ed if regexm(NombApll,"^YA")==1 

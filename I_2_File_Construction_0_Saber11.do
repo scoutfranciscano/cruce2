@@ -1,8 +1,8 @@
 
 /* Este do-file toma el archivo de SABER11 2006 - 2011, los carga en STATA, les asigna labels
  a las variables, se queda solo con las variables relevantes y guarda un archivo menos pesado
- y por tanto mas manejable. Adem·s realiza los cambios necesarias para limpiar las variables 
- de interÈs de car·cteres raros. */
+ y por tanto mas manejable. Adem√°s realiza los cambios necesarias para limpiar las variables 
+ de inter√©s de car√°cteres raros. */
 
 /*
 local AISB11 = ${AISB11}
@@ -32,7 +32,8 @@ set more off
 			if `short'==1{
 				keep if  EVAL_TIPODOCUMENTO=="C"
 				sort   EVAL_DOCUMENTO
-				keep in 1/100
+				*keep in 1/100
+				sample 5000, count
 			} 
 	//		else{
 	//			continue
@@ -49,7 +50,7 @@ set more off
 				gen v1 = substr(string(EVAL_PERIODO),1,4)
 				
 				// A partir de la fecha de nacimiento se generan las variables de
-				// dÌa, mes y aÒo.
+				// d√≠a, mes y a√±o.
 				
 				gen estu_nacimiento_dia=substr(INPE_FECHANACIMIENTO,1,2)
 				
@@ -67,13 +68,13 @@ set more off
 					}
 					
 					cap  drop v13
-					cap	 gen v13 = string(estu_nacimiento_dia)+"/"+string(estu_nacimiento_mes)+"/"+substr(string(estu_nacimiento_anno),3,2) ///
+					cap	 gen v13 = string(estu_nacimiento_dia)+"/"+string(estu_nacimiento_mes)+"/"+string(estu_nacimiento_anno) ///
 									if length(string(estu_nacimiento_dia))==2 & length(string(estu_nacimiento_mes))==2
-						replace v13 = "0"+string(estu_nacimiento_dia)+"/"+string(estu_nacimiento_mes)+"/"+substr(string(estu_nacimiento_anno),3,2) ///
+						replace v13 = "0"+string(estu_nacimiento_dia)+"/"+string(estu_nacimiento_mes)+"/"+string(estu_nacimiento_anno) ///
 									if length(string(estu_nacimiento_dia))==1 & length(string(estu_nacimiento_mes))==2
-						replace v13 = string(estu_nacimiento_dia)+"/"+"0"+string(estu_nacimiento_mes)+"/"+substr(string(estu_nacimiento_anno),3,2) ///
+						replace v13 = string(estu_nacimiento_dia)+"/"+"0"+string(estu_nacimiento_mes)+"/"+string(estu_nacimiento_anno) ///
 									if length(string(estu_nacimiento_dia))==2 & length(string(estu_nacimiento_mes))==1
-						replace v13 = "0"+string(estu_nacimiento_dia)+"/"+"0"+string(estu_nacimiento_mes)+"/"+substr(string(estu_nacimiento_anno),3,2) ///
+						replace v13 = "0"+string(estu_nacimiento_dia)+"/"+"0"+string(estu_nacimiento_mes)+"/"+string(estu_nacimiento_anno) ///
 									if length(string(estu_nacimiento_dia))==1 & length(string(estu_nacimiento_mes))==1
 					ed 	estu_nacimiento_dia estu_nacimiento_mes estu_nacimiento_anno v13 if v13!=""
 						
@@ -99,8 +100,8 @@ set more off
 				***********
 					cap drop v12
 					cap gen v12 = ""
-					cap replace v12 = "MASCULINO" if estu_genero=="M"
-					cap replace v12 = "FEMENINO" if estu_genero=="F"
+					cap replace v12 = "MASCULINO" if INPE_GENERO=="M"
+					cap replace v12 = "FEMENINO" if INPE_GENERO=="F"
 					cap tab v12
 					
 					

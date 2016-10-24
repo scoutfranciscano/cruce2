@@ -81,7 +81,7 @@ foreach u of numlist `AISBP'/`AFSBP'{
 * II. Creando el Directorio de Nombres y Apellidos
 ************************************************************
 
-**** Ac· voy...
+**** Ac√° voy...
 do "${mydir_DoFiles}\II_Algoritmo_0_Subrutinas_2.do"
 
 

@@ -35,7 +35,7 @@
 		replace `x' = regexr(`x',"^ ","")
 		replace `x' = regexr(`x'," $","")
 		replace `x' = regexr(`x'," $","")
-		replace `x' = regexr(`x',"^[A-ZÑ]$","")		
+		replace `x' = regexr(`x',"^[A-ZÃ‘]$","")		
 	}
 	
 	

@@ -1,27 +1,27 @@
 /*
-El presente archivo contiene todo el procedimiento necesario para realizar el cruce de los resultados de SABER 11° y SABER PRO pensando en 
-los insumos necesarios para llevar a cabo los análisis de VALOR AGREGADO 2012- 2014. Dado que los resultados de SABER 11° anteriores a 2005 no cuentan 
-con las características necesarias para garantizar la comparabilidad de los resultados y que se trataba de pruebas con grandes diferencias 
-de fondo y estructura, el cruce se realiza con SABER 11° desde 2006 y se toma hasta 2011, año para el cual la diferencia con SABER PRO 
-2012-2014 es lo suficientemente amplia para llevar a cabo los análisis.
+El presente archivo contiene todo el procedimiento necesario para realizar el cruce de los resultados de SABER 11Â° y SABER PRO pensando en 
+los insumos necesarios para llevar a cabo los anÃ¡lisis de VALOR AGREGADO 2012- 2014. Dado que los resultados de SABER 11Â° anteriores a 2005 no cuentan 
+con las caracterÃ­sticas necesarias para garantizar la comparabilidad de los resultados y que se trataba de pruebas con grandes diferencias 
+de fondo y estructura, el cruce se realiza con SABER 11Â° desde 2006 y se toma hasta 2011, aÃ±o para el cual la diferencia con SABER PRO 
+2012-2014 es lo suficientemente amplia para llevar a cabo los anÃ¡lisis.
 */
 
 clear all
 set mem 15000m
 set more off
 
-global CRUCE "E:\ECUELLAR\Cruce SABER 11 - SABER PRO"
+global CRUCE "C:\Users\lalvarez\Desktop\cruce 2014-2015"
 
 /*
-global AISB11=2006 // Año INICIAL de Saber11 a incluir en Cruce 
+global AISB11=2006 // AÃ±o INICIAL de Saber11 a incluir en Cruce 
 global SISB11=1    // Semestre INICIAL de Saber11 a incluir en Cruce 
-global AFSB11=2011 // Año FINAL de Saber11 a incluir en Cruce 
+global AFSB11=2011 // AÃ±o FINAL de Saber11 a incluir en Cruce 
 global SFSB11=2    // Semestre FINAL de Saber11 a incluir en Cruce 
 
 
-global AISBP=2012 // Año INICIAL de SaberPro a incluir en Cruce 
+global AISBP=2012 // AÃ±o INICIAL de SaberPro a incluir en Cruce 
 global SISBP=1    // Semestre INICIAL de SaberPro a incluir en Cruce 
-global AFSBP=2014 // Año FINAL de SaberPro a incluir en Cruce 
+global AFSBP=2014 // AÃ±o FINAL de SaberPro a incluir en Cruce 
 global SFSBP=2    // Semestre FINAL de SaberPro a incluir en Cruce. Usar igual a 3 si se quiere incluir aplicacion 2010-3 
 */
 
@@ -37,13 +37,13 @@ global short=0   // Se utiliza para hacer pruebas. Si es igual a 1 utiliza tan s
 **************************************	
 
 
-// Solamente se toman las variables correspondientes a la información socio-demográfica para llevar a cabo el cruce.
+// Solamente se toman las variables correspondientes a la informaciÃ³n socio-demogrÃ¡fica para llevar a cabo el cruce.
 // SABER-11
 	global mydir_Data_SB11 "${CRUCE}\input\SABER 11"
 // SABER-11: Correspondencia Codigo FTP y Cita_snee 
 //	global mydir_Data_SB11_FTP_Cita "${CRUCE}\input\SABER 11\Codigos_FTP_CitaSnee"
 
-// Solamente se toman las variables correspondientes a la información socio-demográfica para llevar a cabo el cruce.
+// Solamente se toman las variables correspondientes a la informaciÃ³n socio-demogrÃ¡fica para llevar a cabo el cruce.
 // SABER-Pro
 	global mydir_Data_SBPro "${CRUCE}\input\SABER PRO"	
 // SABER-Pro: Correspondencia Codigo FTP y Cita_snee 	
@@ -58,13 +58,13 @@ global short=0   // Se utiliza para hacer pruebas. Si es igual a 1 utiliza tan s
 // I. CARGANDO DATOS A PARTIR DE ARCHIVOS PLANOS
 ******************************************************************
 
-// Desde que el FTP sirve como herramienta de publicación para los archivos de resultados para los investigadores, se han actualizado los archivos 
-// para garantizar su uniformidad en el tiempo y su fácil acceso. Actualmente los archivos se encuentran en formato .txt Se armó un único archivo con 
-// la información de identificación de todos los estudiantes de SABER 11° desde 2006 a 2011.
-// Para evitar múltiples problemas relacionados con la codificación en la cual se encuentran los archivos, se transfieren los archivos previamente 
-// a formato .dta. El siguiente do-File modifica los caracteres extraños para evitar problemas de codificación más adelante. 
-// En caso de no poder transformar los archivos a .dta, el siguiente do file modifica los carácteres extraños que se generan por los problemas de
-// codificación
+// Desde que el FTP sirve como herramienta de publicaciÃ³n para los archivos de resultados para los investigadores, se han actualizado los archivos 
+// para garantizar su uniformidad en el tiempo y su fÃ¡cil acceso. Actualmente los archivos se encuentran en formato .txt Se armÃ³ un Ãºnico archivo con 
+// la informaciÃ³n de identificaciÃ³n de todos los estudiantes de SABER 11Â° desde 2006 a 2011.
+// Para evitar mÃºltiples problemas relacionados con la codificaciÃ³n en la cual se encuentran los archivos, se transfieren los archivos previamente 
+// a formato .dta. El siguiente do-File modifica los caracteres extraÃ±os para evitar problemas de codificaciÃ³n mÃ¡s adelante. 
+// En caso de no poder transformar los archivos a .dta, el siguiente do file modifica los carÃ¡cteres extraÃ±os que se generan por los problemas de
+// codificaciÃ³n
 
 	// B. INSCRITOS SABER-11
 	* Usa sb11_2006-2011_v1-0.dta y devuelve sb11_2006-2011_v2-0.dta
@@ -137,6 +137,7 @@ global short=0   // Se utiliza para hacer pruebas. Si es igual a 1 utiliza tan s
 	*   5.  Crea Cod_Icfes y se guarda como SB11Pro_2002_2011.dta
 	
 	*   6.  Collapse by (Cod_Icfes) y se crea SB11Pro_2002_2011_NoRep.dta. La idea es cruzar este con SNIES_NoPanel
+	
 	
 	do "${mydir_DoFiles}\III_2_0_SB11_SBPRO_Merged.do"
 

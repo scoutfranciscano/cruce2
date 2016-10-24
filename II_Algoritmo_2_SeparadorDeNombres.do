@@ -1,5 +1,4 @@
 
-
 * II. SEPARANDO PRIMER Y SEGUNDO NOMBRES Y APPELLIDOS
 **************************************************************************************
 
@@ -27,8 +26,8 @@ replace Seg_Nombre = Seg_Nombre_p
 	replace Pri_Seg_Nom= subinstr(Pri_Seg_Nom," DEL DEL "," DEL ",1) 
 	replace Pri_Seg_Nom= subinstr(Pri_Seg_Nom," DE DE "," DE ",1) 
 	
-	replace Pri_Nombre = regexs(1) if regexm(Pri_Seg_Nom,"^([A-ZÑ]+)([ ])(.*)")==1 
-	replace Seg_Nombre = regexs(3) if regexm(Pri_Seg_Nom,"^([A-ZÑ]+)([ ])(.*)")==1 
+	replace Pri_Nombre = regexs(1) if regexm(Pri_Seg_Nom,"^([A-ZÃ‘]+)([ ])(.*)")==1 
+	replace Seg_Nombre = regexs(3) if regexm(Pri_Seg_Nom,"^([A-ZÃ‘]+)([ ])(.*)")==1 
 	drop Pri_Seg_Nom
 	
 	*ed v7 v8 v9 v10 Pri_Nombre Seg_Nombre 
@@ -198,30 +197,30 @@ replace Seg_Nombre = Seg_Nombre_p
 	
 	
 	// Algunos nombres de los de "DE DEL DE LA DE LOS" estanban en el primer nombre sin espacios (MARIADELPILAR) y quedaron ambos en el primer nombre
-	*ed v7 v8 v9 v10 Pri_Nombre Seg_Nombre if regexm(Pri_Nombre,"^([A-ZÑ]+)([ ]+)(.+)")==1
+	*ed v7 v8 v9 v10 Pri_Nombre Seg_Nombre if regexm(Pri_Nombre,"^([A-ZÃ‘]+)([ ]+)(.+)")==1
 	cap drop prov2
-	gen prov2 = 1 if regexm(Pri_Nombre,"^([A-ZÑ]+)([ ]+)(.+)")==1
-	replace Seg_Nombre = regexs(3) if regexm(Pri_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1 & prov2==1
-	replace Pri_Nombre = regexs(1) if regexm(Pri_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1 & prov2==1
+	gen prov2 = 1 if regexm(Pri_Nombre,"^([A-ZÃ‘]+)([ ]+)(.+)")==1
+	replace Seg_Nombre = regexs(3) if regexm(Pri_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1 & prov2==1
+	replace Pri_Nombre = regexs(1) if regexm(Pri_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1 & prov2==1
 	*ed v7 v8 v9 v10 Pri_Nombre Seg_Nombre if prov2==1
 
 	// Algunos nombres de los de "DE DEL DE LA DE LOS" estanban en el segundo nombre sin espacios (MARIADELPILAR) y quedaron ambos en el segundo nombre
-	*ed v7 v8 v9 v10 Pri_Nombre Seg_Nombre if regexm(Seg_Nombre,"^([A-ZÑ]+)([ ]+)(.+)")==1
+	*ed v7 v8 v9 v10 Pri_Nombre Seg_Nombre if regexm(Seg_Nombre,"^([A-ZÃ‘]+)([ ]+)(.+)")==1
 	
 	
 		
 * 1. Creando Tercer y Cuartos nombres para borrar repetidos
 
 	cap drop Ter_Nombre
-	gen Ter_Nombre = regexs(3) if regexm(Seg_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1 
+	gen Ter_Nombre = regexs(3) if regexm(Seg_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1 
 	
 	cap drop Qto_Nombre
-	gen Qto_Nombre = regexs(3) if regexm(Ter_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1 
+	gen Qto_Nombre = regexs(3) if regexm(Ter_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1 
 	
-	replace Seg_Nombre = regexs(1) if regexm(Seg_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1 
-	replace Ter_Nombre = regexs(1) if regexm(Ter_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1 
+	replace Seg_Nombre = regexs(1) if regexm(Seg_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1 
+	replace Ter_Nombre = regexs(1) if regexm(Ter_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1 
 	
-	*ed v7 v8 v9 v10 *_Nombre if (regexm(v7,"^([A-ZÑ]+)([ ])(.*)")==1 | regexm(v8,"^([A-ZÑ]+)([ ])(.*)")==1)
+	*ed v7 v8 v9 v10 *_Nombre if (regexm(v7,"^([A-ZÃ‘]+)([ ])(.*)")==1 | regexm(v8,"^([A-ZÃ‘]+)([ ])(.*)")==1)
 	*ed v7 v8 v9 v10 *_Nombre if  Qto_Nombre!=""
 	
 	
@@ -236,25 +235,25 @@ replace Seg_Nombre = Seg_Nombre_p
 	
 	
 * 2. Algunos tienen solo la inicial 
-	*ed v7 v8 *_Nombre if regexm(Pri_Nombre,"^[A-ZÑ]$")==1
+	*ed v7 v8 *_Nombre if regexm(Pri_Nombre,"^[A-ZÃ‘]$")==1
 	cap drop prov3
-	gen prov3 = 1 if regexm(Pri_Nombre,"^[A-ZÑ]$")==1
+	gen prov3 = 1 if regexm(Pri_Nombre,"^[A-ZÃ‘]$")==1
 	replace Pri_Nombre=Seg_Nombre if prov3==1 & Seg_Nombre!=""
 	replace Seg_Nombre=Ter_Nombre if prov3==1 & Ter_Nombre!=""
 	replace Ter_Nombre=Qto_Nombre if prov3==1 & Qto_Nombre!=""
 	*ed v7 v8 *_Nombre if prov3==1
 	
 		// Note que hay muchos con Inicial "O" o "X". Se borran
-	*ed v7 v8 *_Nombre if regexm(Seg_Nombre,"^[A-ZÑ]$")==1
-	tab Seg_Nombre if regexm(Seg_Nombre,"^[A-ZÑ]$")==1 
+	*ed v7 v8 *_Nombre if regexm(Seg_Nombre,"^[A-ZÃ‘]$")==1
+	tab Seg_Nombre if regexm(Seg_Nombre,"^[A-ZÃ‘]$")==1 
 	replace Seg_Nombre = regexr(Seg_Nombre,"^[OX]$","") 
-	tab Seg_Nombre if regexm(Seg_Nombre,"^[A-ZÑ]$")==1 
+	tab Seg_Nombre if regexm(Seg_Nombre,"^[A-ZÃ‘]$")==1 
 	
-	*ed v7 v8 *_Nombre if regexm(Ter_Nombre,"^[A-ZÑ]$")==1
-	tab Ter_Nombre if regexm(Ter_Nombre,"^[A-ZÑ]$")==1 
+	*ed v7 v8 *_Nombre if regexm(Ter_Nombre,"^[A-ZÃ‘]$")==1
+	tab Ter_Nombre if regexm(Ter_Nombre,"^[A-ZÃ‘]$")==1 
 	
-	*ed v7 v8 *_Nombre if regexm(Qto_Nombre,"^[A-ZÑ]$")==1
-	tab Qto_Nombre if regexm(Qto_Nombre,"^[A-ZÑ]$")==1 
+	*ed v7 v8 *_Nombre if regexm(Qto_Nombre,"^[A-ZÃ‘]$")==1
+	tab Qto_Nombre if regexm(Qto_Nombre,"^[A-ZÃ‘]$")==1 
 	
 	format %50s *_Nombre
 	
@@ -263,10 +262,10 @@ replace Seg_Nombre = Seg_Nombre_p
 		// o mal separados JU AN. Esto ultimo puede ocurrir tanto en la misma variable Pri_Nombre="JU AN" o en dos
 		// Pri_Nombre="JU" Seg_Nombre="AN DIEGO"
 		
-	*ed v7 v8 v9 v10 *_Nombre if regexm(Pri_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1
-	*ed v7 v8 v9 v10 *_Nombre if regexm(Seg_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1
-	*ed v7 v8 v9 v10 *_Nombre if regexm(Ter_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1
-	*ed v7 v8 v9 v10 *_Nombre if regexm(Qto_Nombre,"^([A-ZÑ]+)([ ])(.*)")==1
+	*ed v7 v8 v9 v10 *_Nombre if regexm(Pri_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1
+	*ed v7 v8 v9 v10 *_Nombre if regexm(Seg_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1
+	*ed v7 v8 v9 v10 *_Nombre if regexm(Ter_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1
+	*ed v7 v8 v9 v10 *_Nombre if regexm(Qto_Nombre,"^([A-ZÃ‘]+)([ ])(.*)")==1
 	
 	
 		// Revisando registros con varios nombres en los campos v7 (primer nombre) v8 (segundo nombre)

@@ -1,6 +1,4 @@
 
-
-
 ***********************
 * I. AJUSTES INICIALES 
 ***********************
@@ -12,41 +10,41 @@
 	**ed v7 NameProv if v7!=NameProv
 
 * 2. Quitando las tildes
-	*replace NameProv= regexr(NameProv,"Á","A") //otra manera de hacerlo
-	replace NameProv= subinstr(NameProv,"Á","A",5)
-	replace NameProv= subinstr(NameProv,"À","A",5)
-	replace NameProv= subinstr(NameProv,"á","A",5)
-	replace NameProv= subinstr(NameProv,"à","A",5)
+	*replace NameProv= regexr(NameProv,"Ã","A") //otra manera de hacerlo
+	replace NameProv= subinstr(NameProv,"Ã","A",5)
+	replace NameProv= subinstr(NameProv,"Ã€","A",5)
+	replace NameProv= subinstr(NameProv,"Ã¡","A",5)
+	replace NameProv= subinstr(NameProv,"Ã ","A",5)
 
-	replace NameProv= subinstr(NameProv,"É","E",5)
-	replace NameProv= subinstr(NameProv,"È","E",5)
-	replace NameProv= subinstr(NameProv,"é","E",5)
-	replace NameProv= subinstr(NameProv,"è","E",5)
+	replace NameProv= subinstr(NameProv,"Ã‰","E",5)
+	replace NameProv= subinstr(NameProv,"Ãˆ","E",5)
+	replace NameProv= subinstr(NameProv,"Ã©","E",5)
+	replace NameProv= subinstr(NameProv,"Ã¨","E",5)
 
-	replace NameProv= subinstr(NameProv,"Í","I",5)
-	replace NameProv= subinstr(NameProv,"Ì","I",5)
-	replace NameProv= subinstr(NameProv,"í","I",5)
-	replace NameProv= subinstr(NameProv,"ì","I",5)
+	replace NameProv= subinstr(NameProv,"Ã","I",5)
+	replace NameProv= subinstr(NameProv,"ÃŒ","I",5)
+	replace NameProv= subinstr(NameProv,"Ã­","I",5)
+	replace NameProv= subinstr(NameProv,"Ã¬","I",5)
 
-	replace NameProv= subinstr(NameProv,"Ó","O",5)
-	replace NameProv= subinstr(NameProv,"Ò","O",5)
-	replace NameProv= subinstr(NameProv,"ó","O",5)
-	replace NameProv= subinstr(NameProv,"ò","O",5)
+	replace NameProv= subinstr(NameProv,"Ã“","O",5)
+	replace NameProv= subinstr(NameProv,"Ã’","O",5)
+	replace NameProv= subinstr(NameProv,"Ã³","O",5)
+	replace NameProv= subinstr(NameProv,"Ã²","O",5)
 
-	replace NameProv= subinstr(NameProv,"Ú","U",5)
-	replace NameProv= subinstr(NameProv,"Ù","U",5)
-	replace NameProv= subinstr(NameProv,"Ü","U",5)
-	replace NameProv= subinstr(NameProv,"ú","U",5)
-	replace NameProv= subinstr(NameProv,"ù","U",5)
-	replace NameProv= subinstr(NameProv,"ü","U",5)
+	replace NameProv= subinstr(NameProv,"Ãš","U",5)
+	replace NameProv= subinstr(NameProv,"Ã™","U",5)
+	replace NameProv= subinstr(NameProv,"Ãœ","U",5)
+	replace NameProv= subinstr(NameProv,"Ãº","U",5)
+	replace NameProv= subinstr(NameProv,"Ã¹","U",5)
+	replace NameProv= subinstr(NameProv,"Ã¼","U",5)
 	
 	replace NameProv= subinstr(NameProv,"-"," ",244)
 	replace NameProv= subinstr(NameProv,"*","",244)
-	replace NameProv= subinstr(NameProv,"¿","",244)
+	replace NameProv= subinstr(NameProv,"Â¿","",244)
 	replace NameProv= subinstr(NameProv,"_","",244)
 	
 	
-	replace NameProv = "ZUÑIGA" if NameProv=="Z&Uacute;&Ntilde;IGA"
+	replace NameProv = "ZUÃ‘IGA" if NameProv=="Z&Uacute;&Ntilde;IGA"
 	
 		// Tildes escritas como acute o grave	
 	*ed NameProv if regexm(NameProv,"&")==1
@@ -54,9 +52,9 @@
 	replace NameProv=regexs(1)+regexs(3)+regexs(5) if regexm(NameProv,"^([A-Z]*[ ]*[A-Z]*)(&)([AEIOU])(ACUTE;)([A-Z]*[ ]*)")==1
 	replace NameProv=regexs(1)+regexs(3)+regexs(5) if regexm(NameProv,"^([A-Z]*[ ]*[A-Z]*)(&)([AEIOU])(GRAVE;)([A-Z]*[ ]*)")==1
 	
-		// Ñ escrita como acute		
+		// Ã‘ escrita como acute		
 	*ed NameProv if regexm(NameProv ,"&[N]tilde;")==1
-	replace NameProv=regexs(1)+"Ñ"+regexs(5) if regexm(NameProv,"^([A-Z]*[ ]*[A-Z]*)(&)([N])(TILDE;)([A-Z]*[ ]*)")==1
+	replace NameProv=regexs(1)+"Ã‘"+regexs(5) if regexm(NameProv,"^([A-Z]*[ ]*[A-Z]*)(&)([N])(TILDE;)([A-Z]*[ ]*)")==1
 	
 		// Otros Acute
 	*ed if regexm(NameProv,"&")==1 & regexm(NameProv,"&[AEIOU]acute;")==0 & regexm(NameProv,"&ntilde;")==0
@@ -66,8 +64,8 @@
 * 3. Cambiando ceros que parecen O
 	replace NameProv= subinstr(NameProv,"0","O",10)
 
-* 4. Reemplazando la Ñ (Solo la minuscula)
-	replace NameProv= subinstr(NameProv,"ñ","Ñ",10)
+* 4. Reemplazando la Ã‘ (Solo la minuscula)
+	replace NameProv= subinstr(NameProv,"Ã±","Ã‘",10)
 
 * 5. Reemplazando en primer nombre registros claramente errados
 	replace NameProv =  "" if regexm(NameProv,"^NULL")==1
@@ -81,7 +79,7 @@
 		
 
 * 6. Quitando caracteres adicionales que no tienen que ver con tildes	
-	local ctrs , ' ` ^ ~ º ¬ / ¹ ² ³ 1 2 3 4 5 6 7 8 9
+	local ctrs , ' ` ^ ~ Âº Â¬ / Â¹ Â² Â³ 1 2 3 4 5 6 7 8 9
 	foreach v of local ctrs{
 		gettoken u ctrs : ctrs
 		dis "`u'"
@@ -89,11 +87,11 @@
 	}
 	*
 	
-* 7. Quitando Â inicial seguida de espacio al principio y al final (Problema no muy frecuente pero facil de solucionar)
+* 7. Quitando Ã‚ inicial seguida de espacio al principio y al final (Problema no muy frecuente pero facil de solucionar)
 	
-	replace NameProv= regexr(NameProv,"^Â ","") // Nota: como es importante el espacio para identificar estos registros (de lo contraio borra a Âlvaro)
+	replace NameProv= regexr(NameProv,"^Ã‚Â ","") // Nota: como es importante el espacio para identificar estos registros (de lo contraio borra a Ã‚lvaro)
 												// la instruccion de quitar los espacios y hacer trimming debe ir despues
-	replace NameProv= regexr(NameProv,"Â $","")
+	replace NameProv= regexr(NameProv,"Ã‚Â $","")
 
 	
 * 8. Quitando espacios en blanco (A veces no sirve trim() pq el tamano de los espacios no es estandar)
@@ -101,7 +99,7 @@
 	cou if regexm(NameProv,"  ")==1 // Estos son los que se reemplazan en el loop que sigue
 	**ed v7 NameProv if regexm(NameProv,"  ")==1 // Espacios dobles
 	replace NameProv= subinstr(NameProv,"  "," ",100) // Quitando espacios dobles
-	replace NameProv= subinstr(NameProv," "," ",100)
+	replace NameProv= subinstr(NameProv,"Â "," ",100)
 	replace NameProv = trim(NameProv) // A veces no funciona - usar siguiente grupo de instrucciones
 	
 	/*foreach x of numlist 1/30{
@@ -130,12 +128,12 @@
 * 1. Identificando los registros con caracteres extranos 
 ********************************************************** 
 	
-	* Los siguientes son los caracteres que NO se buscan porque: 1. Son Mayusculas; 2. son caracteres de expresiones regulares; 3. son Ñ
+	* Los siguientes son los caracteres que NO se buscan porque: 1. Son Mayusculas; 2. son caracteres de expresiones regulares; 3. son Ã‘
 	* 32=space; 36=$; 40=(; 41=); 42=*; 43=+; 46=.; 48-57=0-9; 63=?; 65-90=A-Z; 91=[; 92=\; 93=]; 94=^;
-	* 124=|; 209=Ñ; 241=ñ
+	* 124=|; 209=Ã‘; 241=Ã±
 	* NOTA: Coddigos despues del 127 varian con el codepage y por tanto los resultados pueden variar entre computadores
-	* Ejemplo: A veces la (ñ=164, Ñ=165) y a veces es (ñ=241, Ñ=209). (Nota: Deje el 164-165 porque no reemplaza 
-	* "¥" que es char(165) pese a que siempre es Ñ)
+	* Ejemplo: A veces la (Ã±=164, Ã‘=165) y a veces es (Ã±=241, Ã‘=209). (Nota: Deje el 164-165 porque no reemplaza 
+	* "Â¥" que es char(165) pese a que siempre es Ã‘)
 	
 	
 	local j1 ( ) * + . ? [ ] ^ | , \
@@ -143,8 +141,8 @@
 		replace NameProv= subinstr(NameProv,"`j2'","",5)
 	}
 	
-	replace NameProv= subinstr(NameProv,char(164),"Ñ",5)
-	replace NameProv= subinstr(NameProv,char(165),"Ñ",5)
+	replace NameProv= subinstr(NameProv,char(164),"Ã‘",5)
+	replace NameProv= subinstr(NameProv,char(165),"Ã‘",5)
 	
 		
 		// ALTERNATIVA DE LOOP 1: 
@@ -169,7 +167,7 @@
 	   // Correr el siguiente loop y luego hacer copy/paste aqui abajo para tener todos los posibles caracteres problematicos
 	   // Se excluyen el 34 porque confunde al local, al igual que las letras mayusculas y minusculas (ya que no son caracteres problematicos)
 	   // Tambien se excluye Y minuscula con dieresis (ultimo caracter extrano) pq hace terminar el programa por alguna razon 
-	   // Al resultado final se le debe quitar la Ñ a fin de que el algortimo no lo identifique como caracter extrano		  
+	   // Al resultado final se le debe quitar la Ã‘ a fin de que el algortimo no lo identifique como caracter extrano		  
 		*foreach i of numlist 1/33 35/64 93/254{
 		/*foreach i of numlist 1/33 35/254{
 				local y1 = char(`i')
@@ -180,7 +178,7 @@
 		*/
 	
 /*
-	local codestrext "################################!##$%&'()*+,-./0123456789:;<=>?@##########################[\]^_`##########################{|}~€‚ƒ„…†‡ˆ‰Š‹Œ ‘’“”•–—˜™š›œŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞ#ÒÓÔÕÖ×ØÙÚÛÜİŞßàáâãäåæçèéêëìíîïğñòóôõö÷øùúûüış#"
+	local codestrext "################################!##$%&'()*+,-./0123456789:;<=>?@##########################[\]^_`##########################{|}~â‚¬Ââ€šÆ’â€â€¦â€ â€¡Ë†â€°Å â€¹Å’ÂÅ½ Ââ€˜â€™â€œâ€â€¢â€“â€”Ëœâ„¢Å¡â€ºÅ“ÂÅ¾Å¸Â Â¡Â¢Â£Â¤Â¥Â¦Â§Â¨Â©ÂªÂ«Â¬Â­Â®Â¯Â°Â±Â²Â³Â´ÂµÂ¶Â·Â¸Â¹ÂºÂ»Â¼Â½Â¾Â¿Ã€ÃÃ‚ÃƒÃ„Ã…Ã†Ã‡ÃˆÃ‰ÃŠÃ‹ÃŒÃÃÃÃ#Ã’Ã“Ã”Ã•Ã–Ã—Ã˜Ã™ÃšÃ›ÃœÃÃÃŸÃ Ã¡Ã¢Ã£Ã¤Ã¥Ã¦Ã§Ã¨Ã©ÃªÃ«Ã¬Ã­Ã®Ã¯Ã°Ã±Ã²Ã³Ã´ÃµÃ¶Ã·Ã¸Ã¹ÃºÃ»Ã¼Ã½Ã¾#"
 	dis "`codestrext'"
 	/*local i = 1
 	while `i'<=255{ //Loop ayuda a revisar si el orden de los caracteres coincide con codigo ascii. Usar "dis char(numero)" para verificar
@@ -244,7 +242,7 @@
 	local asc2 "`r(ascii)'"		// Se crean 2 locals iguales para solucionar el tema de char(32)=" " 
 	local nasc : list sizeof local(asc1) // Se cuenta el numero de codigos ascii para garantizar que es igual al numero de caracteres extranos
 	
-	display "`ctrs'"
+	display "'ctrs'"
 	display "`nctrs' elementos"
 	display "`asc1"'
 	display "`nascii' elementos"
@@ -260,7 +258,7 @@
 			gettoken v asc2 : asc2
 			gettoken u ctrs : ctrs
 			*dis "this is `u' with ascii code = `v'"
-			if strpos("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ{1234567890","`u'")==0{ //Para todos los caracteres con excepcion de los numeros:	
+			if strpos("ABCDEFGHIJKLMNÃ‘OPQRSTUVWXYZ{1234567890","`u'")==0{ //Para todos los caracteres con excepcion de los numeros:	
 				replace NameProv= subinstr(NameProv,"`u'","{`v'",5) // Reemplaza los caracteres extranos por [CODIGO_ASCII] 
 			}		
 			local i = `i'+1
@@ -314,8 +312,8 @@
 	*ed  v7 NameProv CrtExt q_xyz if regexm(NameProv,"XYZ45")==1 & regexm(NameProv,"XYZ[012][0-35-9][0-46-9]")==1  
 	replace NameProv= subinstr(NameProv,"XYZ45"," ",10)
 	
-	* reemplazanco caracter "-" por Vacio (MARÃ-A)
-	*ed  v7 NameProv CrtExt q_xyz if regexm(v7,"MARÃ")==1
+	* reemplazanco caracter "-" por Vacio (MARÃƒ-A)
+	*ed  v7 NameProv CrtExt q_xyz if regexm(v7,"MARÃƒ")==1
 	*ed  v7 NameProv CrtExt q_xyz if regexm(NameProv,"XYZ173")==1
 	replace NameProv= subinstr(NameProv,"XYZ173","",10)
 	
@@ -379,18 +377,18 @@
 	replace NameProv= subinstr(NameProv,"XYZXYZ","XYZ",1)
 	*replace NameProv= subinstr(NameProv,"XYZ","",1)
 	
-	cap drop vtemp //Variable temporal para identificar nombres con estructuras VOCAL-XYZ-VOCAL que usualmente es para Ñ
+	cap drop vtemp //Variable temporal para identificar nombres con estructuras VOCAL-XYZ-VOCAL que usualmente es para Ã‘
 	gen vtemp=.
 	replace vtemp = (regexm(NameProv,"[AEIOU]XYZ[AEIOU]")==1)
-	replace NameProv= subinstr(NameProv,"XYZ","Ñ",1) if vtemp==1
+	replace NameProv= subinstr(NameProv,"XYZ","Ã‘",1) if vtemp==1
 	replace NameProv= subinstr(NameProv,"XYZ","A",1) if vtemp!=1
 	replace vtemp = (regexm(NameProv,"[AEIOU]XYZ[AEIOU]")==1)
-	replace NameProv= subinstr(NameProv,"XYZ","Ñ",1) if vtemp==1
+	replace NameProv= subinstr(NameProv,"XYZ","Ã‘",1) if vtemp==1
 	replace NameProv= subinstr(NameProv,"XYZ","A",1) if vtemp!=1
 	drop vtemp
 	
-	replace NameProv= subinstr(NameProv,"ı","Ñ",2) if regexm(NameProv,"[AEIOU]ı[AEIOU]")==1
-	replace NameProv= subinstr(NameProv,"ı","A",2) if regexm(NameProv,"[AEIOU]ı[AEIOU]")==0
+	replace NameProv= subinstr(NameProv,"Ã½","Ã‘",2) if regexm(NameProv,"[AEIOU]Ã½[AEIOU]")==1
+	replace NameProv= subinstr(NameProv,"Ã½","A",2) if regexm(NameProv,"[AEIOU]Ã½[AEIOU]")==0
 	
 
 *************************************************

@@ -55,19 +55,19 @@ use "${mydir_Data_SBPro}\sbpro2012-2014_v1-4.dta", clear
 	cap drop dup_SBPRO_1
 		egen dup_SBPRO_1 = rank(v0), by(v5 PN_SxLv SN_SxLv PA_SxLv SA_SxLv Masculino v13_c)
 		tab dup_SBPRO_1 
-	tab dup_SBPRO_0 dup_SBPRO_1
+	*tab dup_SBPRO_0 dup_SBPRO_1
 	ed if dup_SBPRO_0!=dup_SBPRO_1
 	
 	
 	cap drop dup_SBPRO_2
 		egen dup_SBPRO_2 = rank(v0), by(v5 PN_SxLv PA_SxLv Masculino)
 		tab dup_SBPRO_2
-	tab dup_SBPRO_0 dup_SBPRO_2
+	*tab dup_SBPRO_0 dup_SBPRO_2
 	ed if dup_SBPRO_0!=dup_SBPRO_2
 	
 	cap drop dup_SBPRO_3 // Ranking para borrar
 		egen dup_SBPRO_3 = rank(v0), by(v5 PN_SxLv PA_SxLv Masculino) unique
-	tab dup_SBPRO_3 
+	*tab dup_SBPRO_3 
 	
 	
 	// Salvando la segunda y tercera cita_snee

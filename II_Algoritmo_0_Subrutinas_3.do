@@ -1,6 +1,5 @@
 
 
-
 * 0. PRELIMINAR: EDITANDO REGISTROS CON NOMBRE1=APELLIDO1
 **********************************************************
 	** OJO: REVISAR PRIMERO SI ESTO PASA EN LOS OTROS ARCHIVOS DE SNIES Y EN SABER

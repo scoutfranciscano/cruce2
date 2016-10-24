@@ -1,7 +1,5 @@
 
 
-
-
 ***************************
 * I. Separando Apellidos
 ***************************
@@ -11,8 +9,8 @@ replace Seg_Aplldo = "NOMESQUE" if upper(v10)=="NOMESQUE"
 replace Pri_Aplldo = "NOMELIN" if upper(v9)=="NOMELIN"
 replace Seg_Aplldo = "NOMELIN" if upper(v10)=="NOMELIN"
 
-replace Pri_Aplldo = regexr(Pri_Aplldo,"MUÑ Z","MUÑOZ")
-replace Seg_Aplldo = regexr(Seg_Aplldo,"MUÑ Z","MUÑOZ")
+replace Pri_Aplldo = regexr(Pri_Aplldo,"MUÃ‘ Z","MUÃ‘OZ")
+replace Seg_Aplldo = regexr(Seg_Aplldo,"MUÃ‘ Z","MUÃ‘OZ")
 
 
 cap drop NameProv
@@ -59,8 +57,8 @@ cap drop v10A
 gen v10A = ""
 
 
-local ln0 DIAZ CASTILLO, DIAZ GRANADOS, FACIO LINCE, FERNANDEZ CASTRO, FERNANDEZ SOTO, LA ROTA, LA ROTTA, LADRON GUEVARA, LOPEZ MESA, MONTES OCA, PONCE LEON, SANZ SANTAMARIA, SAN JUAN, SAN MARTIN, SAN MIGUEL, GUTIERREZ PIÑEREZ, GUTIERREZ PIÑERES, GUTIERREZ PINERES, GUTIERREZ PINEREZ  
-local ln1 "DIAZ CASTILLO" " DIAZ GRANADOS" " FACIO LINCE" " FERNANDEZ CASTRO" " FERNANDEZ SOTO" "GUTIERREZ PIÑERES" "LA ROTA" "LA ROTTA" "LADRON GUEVARA" "LOPEZ MESA" "MONTES OCA" "PONCE LEON" "SANZ SANTAMARIA" "SAN JUAN" "SAN MARTIN" "SAN MIGUEL" "GUTIERREZ PIÑEREZ" "GUTIERREZ PIÑERES" "GUTIERREZ PINERES" "GUTIERREZ PINEREZ"
+local ln0 DIAZ CASTILLO, DIAZ GRANADOS, FACIO LINCE, FERNANDEZ CASTRO, FERNANDEZ SOTO, LA ROTA, LA ROTTA, LADRON GUEVARA, LOPEZ MESA, MONTES OCA, PONCE LEON, SANZ SANTAMARIA, SAN JUAN, SAN MARTIN, SAN MIGUEL, GUTIERREZ PIÃ‘EREZ, GUTIERREZ PIÃ‘ERES, GUTIERREZ PINERES, GUTIERREZ PINEREZ  
+local ln1 "DIAZ CASTILLO" " DIAZ GRANADOS" " FACIO LINCE" " FERNANDEZ CASTRO" " FERNANDEZ SOTO" "GUTIERREZ PIÃ‘ERES" "LA ROTA" "LA ROTTA" "LADRON GUEVARA" "LOPEZ MESA" "MONTES OCA" "PONCE LEON" "SANZ SANTAMARIA" "SAN JUAN" "SAN MARTIN" "SAN MIGUEL" "GUTIERREZ PIÃ‘EREZ" "GUTIERREZ PIÃ‘ERES" "GUTIERREZ PINERES" "GUTIERREZ PINEREZ"
 
 local nv : word count "`ln1'" //Counting the number of lastnames in the list
 	di `nv'
@@ -77,12 +75,12 @@ local nv : word count "`ln1'" //Counting the number of lastnames in the list
 			ed v9A v10A NameProv if regexm(NameProv ,"^(`t' )(`t')")==1
 			replace v10A = regexs(2) if regexm(NameProv ,"^(`t' )(`t')")==1
 			
-			ed v9A v10A NameProv if regexm(NameProv ,"^(`t' )([A-ZÑ]* )")==1 & v10A==""
-			replace v10A = regexs(2) if regexm(NameProv ,"^(`t' )([A-ZÑ]*)")==1 & v10A==""
+			ed v9A v10A NameProv if regexm(NameProv ,"^(`t' )([A-ZÃ‘]* )")==1 & v10A==""
+			replace v10A = regexs(2) if regexm(NameProv ,"^(`t' )([A-ZÃ‘]*)")==1 & v10A==""
 	
-			ed v9A v10A NameProv if regexm(NameProv ,"^([A-ZÑ]* )(`t')")==1 & v9A==""
-			replace v9A = regexs(1) if regexm(NameProv ,"^([A-ZÑ]* )(`t')")==1 & v9A==""
-			replace v10A = regexs(2) if regexm(NameProv ,"^([A-ZÑ]* )(`t')")==1 & v10A==""
+			ed v9A v10A NameProv if regexm(NameProv ,"^([A-ZÃ‘]* )(`t')")==1 & v9A==""
+			replace v9A = regexs(1) if regexm(NameProv ,"^([A-ZÃ‘]* )(`t')")==1 & v9A==""
+			replace v10A = regexs(2) if regexm(NameProv ,"^([A-ZÃ‘]* )(`t')")==1 & v10A==""
 			
 			local i = `i'+1
 			local j = `j'+1
@@ -98,8 +96,8 @@ replace NameProv = regexr(NameProv,"^ ","")
 replace NameProv = regexr(NameProv," $","")
 replace NameProv = regexr(NameProv,"^ ","")
 
-replace v9A = regexs(1) if regexm(NameProv,"^([A-ZÑ]* )([A-ZÑ]*)")==1 & v9A==""
-replace v10A = regexs(2) if regexm(NameProv,"^([A-ZÑ]* )([A-ZÑ]*)")==1 & v10A==""	
+replace v9A = regexs(1) if regexm(NameProv,"^([A-ZÃ‘]* )([A-ZÃ‘]*)")==1 & v9A==""
+replace v10A = regexs(2) if regexm(NameProv,"^([A-ZÃ‘]* )([A-ZÃ‘]*)")==1 & v10A==""	
 	
 ed Pri_Aplldo Seg_Aplldo NameProv v9A v10A if regexm(Pri_Aplldo, "^DE ")==1 | regexm(Pri_Aplldo, " DE ")==1 | regexm(Seg_Aplldo, "^DE ")==1 | regexm(Seg_Aplldo, " DE ")==1				
 
@@ -117,14 +115,14 @@ replace v10A = regexr(v10A,"^ ","")
 
 ed v9 v10 Pri_Aplldo Seg_Aplldo NameProv v9A v10A if (v9A!=Pri_Aplldo | v10A!=Seg_Aplldo) & Seg_Aplldo!=""
 ed Pri_Aplldo Seg_Aplldo NameProv v9A v10A if (v9A!=Pri_Aplldo | v10A!=Seg_Aplldo) & Seg_Aplldo!="" ///
-	& (regexm(Pri_Aplldo,"[A-ZÑ]DE$")==1 | regexm(Pri_Aplldo,"[A-ZÑ]DEL$")==1)
+	& (regexm(Pri_Aplldo,"[A-ZÃ‘]DE$")==1 | regexm(Pri_Aplldo,"[A-ZÃ‘]DEL$")==1)
 
 replace Pri_Aplldo = v9A if v9A!=""
 replace Seg_Aplldo = v10A if v10A!=""
 
 ed v9 v10 Pri_Aplldo Seg_Aplldo NameProv v9A v10A if (v9A!=Pri_Aplldo | v10A!=Seg_Aplldo) & Seg_Aplldo!=""
 ed Pri_Aplldo Seg_Aplldo NameProv v9A v10A if (v9A!=Pri_Aplldo | v10A!=Seg_Aplldo) & Seg_Aplldo!="" ///
-	& (regexm(Pri_Aplldo,"[A-ZÑ]DE$")==1 | regexm(Pri_Aplldo,"[A-ZÑ]DEL$")==1)
+	& (regexm(Pri_Aplldo,"[A-ZÃ‘]DE$")==1 | regexm(Pri_Aplldo,"[A-ZÃ‘]DEL$")==1)
 
 		
 

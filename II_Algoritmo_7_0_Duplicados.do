@@ -1,5 +1,4 @@
 
-
 	// Esta seccion mira registros duplicados. Esto es importante porque hay diversas razones por las cuales un 
 	// estudiante puede aparecer varias veces. Hay dos en particular que son relevantes:
 	// 1. Porque el estudiante esta haciendo doble programa
@@ -535,9 +534,9 @@
 		cap tab id_v5 NroTotProg 
 			// Note que aquellos con documento repetido (id_v5>1) pero 1 solo programa (NroTotProg) son aquellos que:
 			// 1. Son la misma persona pero no cruzaron antes por tener algo diferente en el nombre. En esta parte lo unico que
-			// se impone es que, además de tener el mismo documento, tengan el mismo primer nombre y apellido
+			// se impone es que, ademÃ¡s de tener el mismo documento, tengan el mismo primer nombre y apellido
 			// 2. Estudiantes repetidos con alguno de los registros repetidos sin PN_SxLV o PA_SxLV por problemas en la escritura del nombre
-			// 3. Dos estudiantes diferentes con igual numero de ID (Error de digitción?). 		
+			// 3. Dos estudiantes diferentes con igual numero de ID (Error de digitciÃ³n?). 		
 		sort v5
 		*ed v3 v104 v5 v7 v8 v9 v10 v13_c id_SLM NroTotProg Mult_Doc id_v5 ///
 			if NroTotProg==1 & id_v5>1 & id_v5!=.

@@ -16,7 +16,7 @@
 	
 	// 1B. HALLANDO LOS QUE TIENEN VARIOS SABER-PRO - GUARDANDO LA CITA - Creando 1 Registro por estudiante
 	*******************************************************************************************************
-	do "${mydir_DoFiles}\III_2_2_SB11_SBPRO_CitasDup_SabPro.do"
+	run "${mydir_DoFiles}\III_2_2_SB11_SBPRO_CitasDup_SabPro.do"
 
 
 	// Estos dos do-files generan un archivo general de Saber11 de 2002 a 2011
@@ -98,7 +98,7 @@
 					gen PNN_1=.
 				cap drop PAN_1
 					gen PAN_1=.	
-				local x1 A B C D E F G H I J K L M N � O P Q R S T U V W X Y Z 
+				local x1 A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z 
 				local i = 1
 				foreach x2 of local x1{
 					dis "`x2'"		
@@ -143,7 +143,7 @@
 				replace p_v5 = -1*real(v5+PPP) if lg_v5<7
 				replace p_v5 = -1*real(substr(v5,1,9)+PPP) if lg_v5>13 & lg_v5!=.
 				format %20.0g p_v5 
-				
+	*revisar problema identificaciones que empiezan con 0			
 			
 		// Garantiza que cruce sea entre resgistros de SaberPro y Saber11
 			cap drop r_FO // Buscando matches errados entre registros del mismo examen: los grupos deben ser de SB11 con SBPro
@@ -241,6 +241,8 @@
 			ed EVAL_PERIODO v5 p_v5 Pri_Nombre Seg_Nombre Pri_Aplldo Seg_Aplldo Masculino v13  ///
 				if c_gr_A_2==2 & prov_par==1.5 // Estos son problemas con p_v5 repetidos erroneamente por mi
 				// vuelvo positivo una de las dos repeticiones (chequaer que nadie mas quede con ese codigo) para armar los grupos despues
+			    
+				// Se debe cambiar a mano siempre, con respecto a las observaciones que salieron en el código anterior
 			replace p_v5 = 1461404681320 if c_gr_A_2==2 & prov_par==1.5 & p_v5==-1461404681320 & v13=="21/10/92"
 			replace p_v5 = 1461404680310 if c_gr_A_2==2 & prov_par==1.5 & p_v5==-1461404680310 & v13=="06/03/93"
 			replace p_v5 = 8447050461213 if c_gr_A_2==2 & prov_par==1.5 & p_v5==-8447050461213 & v13=="04/05/87"

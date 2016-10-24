@@ -1,4 +1,4 @@
-		
+	
 				// Salvando Codigo IES de aquellos con doble/triple programa
 				// Se juntan el codigo IES y el de programa pq el codigo IES no es unico para cada persona y asi se garantiza que las vars v3,  v3_2 y v3_3
 				// tengan el mismo ordenb de las variables v104_1 v104_2 v104_3

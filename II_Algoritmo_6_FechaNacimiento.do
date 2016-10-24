@@ -1,5 +1,4 @@
 
-
 	************************************************************************************************************
 	// I. Antes de editar fecha de Nacimiento, usar tarjeta de identidad para imputar fecha de registros faltantes
 	************************************************************************************************************
@@ -85,7 +84,7 @@
 		replace FN_dia = . if ~(FN_dia>=1 & FN_dia<=31)
 		tab FN_dia
 
-		local YR = v1[1] // v1 = A�o del Archivo. Se generaliza para usar esto con otros archivos del MEN 
+		local YR = v1[1] // v1 = Año del Archivo. Se generaliza para usar esto con otros archivos del MEN 
 		dis "`YR'"
 		cap drop age_`YR' //Assumiendo mitad de ano
 		gen age_`YR' = (`YR'-FN_ano) + (6-FN_mes)/12
@@ -116,15 +115,15 @@
 	   *******************************************************************************
 		cap drop stbyIES 
 		*egen stbyIES = count(v1) if FN_valid==1 & dup_FN==1, by(v3) // Nro de estudiantes en IES
-		egen stbyIES = count(v1) if FN_valid==1 & dup_FN==1, by(v3 FN_ano) // Nro de estudiantes por A�oNacimiento/IES
+		egen stbyIES = count(v1) if FN_valid==1 & dup_FN==1, by(v3 FN_ano) // Nro de estudiantes por AñoNacimiento/IES
 				
 		cap drop stbyFNIES 
 		*egen stbyFNIES = count(v1) if FN_valid==1 & dup_FN==1, by(v3 v13) // Nro de estudiantes por FechaNacimiento/IES
-		egen stbyFNIES = count(v1) if FN_valid==1 & dup_FN==1, by(v3 v13 FN_ano) // Nro de estudiantes por A�oNacimiento/FechaNacimiento/IES
+		egen stbyFNIES = count(v1) if FN_valid==1 & dup_FN==1, by(v3 v13 FN_ano) // Nro de estudiantes por AñoNacimiento/FechaNacimiento/IES
 
 			
 		
-		// INDICADOR 1: Distribucion de fecha de Nacimiento al interior de grupos formados por IES/A�oNacimiento
+		// INDICADOR 1: Distribucion de fecha de Nacimiento al interior de grupos formados por IES/AñoNacimiento
 		// En principo, % altos indicarian fechas sospechosamente frecuentes. 
 		// Sin embargo, este criterio solo es valido para grupos grandes (stbyIES>>0) ya que si stbyIES=23,
 		// la probabilidad de que 2 pesonas nazcan el mismo dia es de 0.5 (Birthday Paradox)  
@@ -174,7 +173,7 @@
 		
 		***
 		
-		cap drop psn // Esta es la probabilidad de al menos una n-tupla en un grupo de tama�o N
+		cap drop psn // Esta es la probabilidad de al menos una n-tupla en un grupo de tamaño N
 		gen double psn = 1-exp(-e1/e2)
 		
 		***
@@ -348,13 +347,13 @@
 
 	
 		// Ahora, hay unos registros (que tienen tarjeta de identidad) que tienen una fecha de nacimiento que 
-		// NO fue catalogada como sospechosamente frecuente, pero cuyo a�o de nacimiento NO coincide 
-		// con el a�o de nacimiento de la tarjeta de identidad. Asumiento que la informaci�n de la variable doucmento
+		// NO fue catalogada como sospechosamente frecuente, pero cuyo año de nacimiento NO coincide 
+		// con el año de nacimiento de la tarjeta de identidad. Asumiento que la información de la variable doucmento
 		// de identidad es mas confiable que la de fecha de nacimiento, se hace la siguiente correccion:
 	
 		
 			// Corrigiendo tipo de documento de CC a TI 
-				//A. Cuando los 2 primeros digitos del documento (a�o si es TI) son IGUALES a los digitos de a�o de la fecha de nacimiento corregida
+				//A. Cuando los 2 primeros digitos del documento (año si es TI) son IGUALES a los digitos de año de la fecha de nacimiento corregida
 		*ed v13 v13_c v5 v6 if length(v5)==11 & substr(v5,1,2)==substr(v13_c,7,2)
 		tab v6 if length(v5)==11 & substr(v5,1,2)==substr(v13_c,7,2)
 		*ed v13 v13_c v5 v6 if length(v5)!=11 & substr(v5,1,2)==substr(v13_c,7,2) & v6=="CC" //Cuando no son 11 digitos no funciona el argumento
@@ -362,7 +361,7 @@
 		replace v6="TI" if length(v5)==11 & substr(v5,1,2)==substr(v13_c,7,2) & v6=="CC"
 		
 		
-				//B. Cuando los 2 primeros digitos del documento (a�o si es TI) son DIFERENTES a los digitos de a�o de la fecha de nacimiento corregida
+				//B. Cuando los 2 primeros digitos del documento (año si es TI) son DIFERENTES a los digitos de año de la fecha de nacimiento corregida
 				// pero la variable doucmento empieza con 7,8,9 (las posibles decadas de nacimiento)
 		*ed v13 v13_c v5 v6 if length(v5)==11 & substr(v5,1,2)!=substr(v13_c,7,2) & v6=="CC"
 		*ed v13 v13_c v5 v6 if length(v5)==11 & substr(v5,1,2)!=substr(v13_c,7,2) & v6=="CC" & (substr(v5,1,1)=="7" | substr(v5,1,1)=="8" | substr(v5,1,1)=="9")
@@ -380,11 +379,11 @@
 			(substr(v5,1,1)=="7" | substr(v5,1,1)=="8" | substr(v5,1,1)=="9") ///
 			& ~(real(substr(v5,3,1))<=1 & real(substr(v5,5,1))<=3)
 			
-		local YR = v1[1] // v1 = A�o del Archivo (EX. = 2007 para todos los registros). 						 
+		local YR = v1[1] // v1 = Año del Archivo (EX. = 2007 para todos los registros). 						 
 		*ed v13 v13_c v5 v6 if length(v5)==11 & substr(v5,1,2)!=substr(v13_c,7,2) & v13!="" & ///
 			(substr(v5,1,1)=="7" | substr(v5,1,1)=="8" | substr(v5,1,1)=="9") /// Nacido en decadas 70s, 80s, 90s
 			& (real(substr(v5,3,1))<=1 & real(substr(v5,5,1))<=3) ///	Primer digito del mes es {0,1} y del dia {0,1,2,3}		
-			& ~(`YR'- real(substr(v5,1,2))<=60 &  `YR'- real(substr(v5,1,2))>=15) // el a�o del archivo menos el a�o de nacimiento = edad = dede ser [15,60]
+			& ~(`YR'- real(substr(v5,1,2))<=60 &  `YR'- real(substr(v5,1,2))>=15) // el año del archivo menos el año de nacimiento = edad = dede ser [15,60]
 		
 		replace v13_c = substr(v5,5,2) + "/" + substr(v5,3,2) + "/" + substr(v5,1,2) ///
 			if length(v5)==11 & substr(v5,1,2)!=substr(v13_c,7,2) & v13!="" & ///
@@ -419,20 +418,33 @@
 	replace FN_dia = . if ~(FN_dia>=1 & FN_dia<=31)
 	cap tab FN_dia
 
-	
-	local YR = v1[1] // v1 = A�o del Archivo (EX. = 2007 para todos los registros). 
+/*	
+
+Este comando genera un error al crear la edad, además de que no hay necesidad de
+usar local, por lo que se procedio a hacer lo mismo pero directamente con v1.
+
+	local YR = v1[1] // v1 = Año del Archivo (EX. = 2007 para todos los registros). 
 					 // Se generaliza aqui con T=YR para usar este do file con otros archivos del MEN 
 	dis "`YR'"
 	cap drop age_`YR'
 	gen age_`YR' = (`YR'-FN_ano) + (6-FN_mes)/12 
 	sum age_`YR', detail
-			
+	
 	replace FN_ano = . if ~(age_`YR'>=15 & age_`YR'<=60) 				
 	replace FN_mes = . if FN_ano==.
 	replace FN_dia = . if FN_ano==.
 	replace age_`YR' = . if FN_ano==.
 	sum age_`YR', detail
-	
+*/	
+	cap drop age_
+	gen age_ = (v1-FN_ano) + (6-FN_mes)/12 
+	sum age_, detail
+			
+	replace FN_ano = . if ~(age_>=15 & age_<=60) 				
+	replace FN_mes = . if FN_ano==.
+	replace FN_dia = . if FN_ano==.
+	replace age_ = . if FN_ano==.
+	sum age_, detail
 	
 	cap drop FN_valid //Variable indicadora para tener en cuanta cuando se use v13 para los cruces
 	gen FN_valid=1 if FN_ano!=.
